@@ -2,16 +2,13 @@ use std::future::Future;
 
 use async_trait::async_trait;
 use axum_core::body::Body;
+use axum_core::extract::FromRequestParts;
 use axum_core::response::Response;
-
+use http::request::Parts;
 use http::{header, HeaderMap, HeaderName, HeaderValue, Method, StatusCode};
-
 use hyper_util::rt::TokioIo;
 use sha1::Digest;
-pub use tokio_websockets::{Config, Message, WebSocketStream};
-
-use axum_core::extract::FromRequestParts;
-use http::request::Parts;
+use tokio_websockets::Config;
 
 use crate::{websocket::WebSocket, WebSocketError};
 
