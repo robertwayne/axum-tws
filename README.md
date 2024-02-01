@@ -18,7 +18,8 @@ using it, but it is functional. I cannot guarantee API stability, though._
 
 ## Getting Started
 
-_Work in progress._
+Run `cargo add --git https://github.com/robertwayne/axum-tws` to add the library
+to your project.
 
 ## Echo Server Example
 
