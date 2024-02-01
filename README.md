@@ -13,8 +13,8 @@ Much of the code has been ported directly from the __[axum::extract::ws
 module](https://docs.rs/axum/latest/axum/extract/ws/index.html)__ - all credit
 goes to the original authors.
 
-_This library is currently a work in progress. I wouldn't necessarily recommend
-using it, but it is functional. I cannot guarantee API stability, though._
+__This library is currently a work in progress. I wouldn't necessarily recommend
+using it, but it is functional. I cannot guarantee API stability, though.__
 
 ## Getting Started
 
