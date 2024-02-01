@@ -20,9 +20,47 @@ using it, but it is functional. I cannot guarantee API stability, though._
 
 _Work in progress._
 
-## Example
+## Echo Server Example
 
-_Work in progress._
+```rust
+// [dependencies]
+// axum = "0.7"
+// axum-tws = { git = "https://github.com/robertwayne/axum-tws" }
+// tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+
+use axum::{response::Response, routing::get, Router};
+use axum_tws::{Message, WebSocket, WebSocketUpgrade};
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:3000").await?;
+
+    axum::serve(listener, Router::new().route("/ws", get(handle_upgrade))).await?;
+
+    Ok(())
+}
+
+async fn handle_upgrade(ws: WebSocketUpgrade) -> Response {
+    ws.on_upgrade({
+        move |socket| async {
+            if let Err(e) = handle_ws(socket).await {
+                println!("websocket error: {:?}", e);
+            }
+        }
+    })
+}
+
+async fn handle_ws(mut socket: WebSocket) -> Result<(), Box<dyn std::error::Error>> {
+    while let Some(Ok(msg)) = socket.recv().await {
+        if let Message::Text(text) = msg {
+            println!("received: {}", String::from_utf8_lossy(&text));
+            socket.send(Message::Text(text)).await?;
+        }
+    }
+
+    Ok(())
+}
+```
 
 ## Contributing
 
