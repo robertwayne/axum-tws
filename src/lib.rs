@@ -12,13 +12,13 @@ pub use crate::{message::Message, upgrade::WebSocketUpgrade, websocket::WebSocke
 
 #[derive(Debug)]
 pub enum WebSocketError {
-    TokioWebSocket(tokio_websockets::Error),
-    Hyper(hyper::Error),
-    MethodNotGet,
+    ConnectionNotUpgradeable,
+    Internal(tokio_websockets::Error),
     InvalidConnectionHeader,
     InvalidUpgradeHeader,
     InvalidWebSocketVersionHeader,
-    UpgradeFailure,
+    MethodNotGet,
+    UpgradeFailed(hyper::Error),
 }
 
 impl Display for WebSocketError {
@@ -39,14 +39,8 @@ impl IntoResponse for WebSocketError {
     }
 }
 
-impl From<hyper::Error> for WebSocketError {
-    fn from(e: hyper::Error) -> Self {
-        WebSocketError::Hyper(e)
-    }
-}
-
 impl From<tokio_websockets::Error> for WebSocketError {
     fn from(e: tokio_websockets::Error) -> Self {
-        WebSocketError::TokioWebSocket(e)
+        WebSocketError::Internal(e)
     }
 }

@@ -88,7 +88,7 @@ where
         let on_upgrade = parts
             .extensions
             .remove::<hyper::upgrade::OnUpgrade>()
-            .ok_or(WebSocketError::UpgradeFailure)?;
+            .ok_or(WebSocketError::ConnectionNotUpgradeable)?;
 
         let sec_websocket_protocol = parts.headers.get(header::SEC_WEBSOCKET_PROTOCOL).cloned();
 
@@ -135,7 +135,7 @@ impl<F> WebSocketUpgrade<F> {
             let upgraded = match on_upgrade.await {
                 Ok(upgraded) => upgraded,
                 Err(err) => {
-                    on_failed_upgrade.call(err.into());
+                    on_failed_upgrade.call(WebSocketError::UpgradeFailed(err));
                     return;
                 }
             };
