@@ -16,7 +16,10 @@ impl From<tokio_websockets::Message> for Message {
         } else if msg.is_binary() {
             Message::Binary(msg.into_payload())
         } else if msg.is_close() {
-            let (code, reason) = msg.as_close().unwrap();
+            let Some((code, reason)) = msg.as_close() else {
+                return Message::Close(None, String::new());
+            };
+
             Message::Close(Some(code), reason.to_string())
         } else if msg.is_ping() {
             Message::Ping(msg.into_payload())
