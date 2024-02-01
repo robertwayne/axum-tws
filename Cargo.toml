@@ -1,0 +1,28 @@
+[package]
+name = "axum-tws"
+authors = ["Rob Wagner <rob@sombia.com>"]
+license = "MIT OR Apache-2.0"
+description = "An alternative WebSocket backend for axum using tokio-websockets."
+repository = "https://github.com/robertwayne/axum-tws"
+categories = ["web-programming"]
+keywords = ["axum", "tokio-websockets"]
+readme = "README.md"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+async-trait = "0.1"
+axum-core = "0.4"
+base64 = "0.21"
+bytes = "1"
+futures-util = { version = "0.3", features = ["sink"] }
+http = "1"
+hyper = { version = "1", features = ["server"] }
+hyper-util = { version = "0.1", features = ["server", "tokio"] }
+sha1 = "0.10"
+tokio = { version = "1", default-features = false }
+tokio-websockets = { version = "0.5", features = [
+    "server",
+    "rustls-webpki-roots",
+    "ring",
+] }
