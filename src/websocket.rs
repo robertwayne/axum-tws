@@ -22,25 +22,14 @@ impl WebSocket {
         Self { inner, protocol }
     }
 
+    /// Receive the next message from the connection.
     pub async fn recv(&mut self) -> Option<Result<Message, WebSocketError>> {
-        let msg = self.next().await;
-
-        if let Some(Ok(msg)) = msg {
-            Some(Ok(msg.into()))
-        } else if let Some(Err(e)) = msg {
-            Some(Err(e))
-        } else {
-            None
-        }
+        self.next().await.map(|res| res.map(|msg| msg.into()))
     }
 
+    /// Send a message to the connection.
     pub async fn send(&mut self, msg: Message) -> Result<(), WebSocketError> {
         self.inner.send(msg.into()).await.map_err(|e| e.into())
-    }
-
-    /// Gracefully close this WebSocket.
-    pub async fn close(mut self) -> Result<(), WebSocketError> {
-        self.inner.close().await.map_err(|e| e.into())
     }
 }
 
