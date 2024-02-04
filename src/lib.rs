@@ -5,6 +5,7 @@ pub mod websocket;
 use std::fmt::Display;
 
 use axum_core::body::Body;
+use axum_core::response::IntoResponse;
 use axum_core::response::Response;
 use http::StatusCode;
 
@@ -29,7 +30,6 @@ impl Display for WebSocketError {
 
 impl std::error::Error for WebSocketError {}
 
-use axum_core::response::IntoResponse;
 impl IntoResponse for WebSocketError {
     fn into_response(self) -> Response<Body> {
         Response::builder()
