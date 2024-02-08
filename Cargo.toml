@@ -17,12 +17,8 @@ base64 = "0.21"
 bytes = "1"
 futures-util = { version = "0.3", features = ["sink"] }
 http = "1"
-hyper = { version = "1", features = ["server"] }
-hyper-util = { version = "0.1", features = ["server", "tokio"] }
+hyper = { version = "1", features = [] }
+hyper-util = { version = "0.1", features = ["tokio"] }
 sha1 = "0.10"
 tokio = { version = "1", default-features = false }
-tokio-websockets = { version = "0.5", features = [
-    "server",
-    "rustls-webpki-roots",
-    "ring",
-] }
+tokio-websockets = { version = "0.5", features = ["server", "ring"] }
