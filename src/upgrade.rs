@@ -13,7 +13,6 @@ use tokio_websockets::Config;
 use crate::{websocket::WebSocket, WebSocketError};
 
 pub trait OnFailedUpgrade: Send + 'static {
-    /// Call the callback.
     fn call(self, error: WebSocketError);
 }
 
