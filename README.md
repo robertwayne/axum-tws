@@ -5,11 +5,12 @@ __[axum](https://github.com/tokio-rs/axum)__ using
 __[tokio-websockets](https://github.com/Gelbpunkt/tokio-websockets/)__ as the
 underlying WebSocket library instead of `tungstenite`.
 
-It is not a complete drop-in replacement and has no intention to do so. While
-your upgrade handler will look the same, handling `Message` types in
-`tokio-websockets` is quite different from `tungstenite`. Please refer to the
-__[tokio-websockets documentation](https://docs.rs/tokio-websockets/latest/tokio_websockets/)__
-for detailed information, or take a look at the example below.
+It is not a complete drop-in replacement and has no intention to be one. While
+your upgrade handler will look the same, working with `Message` types in
+`tokio-websockets` is slightly different from `tungstenite`. Please refer to the
+__[tokio-websockets
+documentation](https://docs.rs/tokio-websockets/latest/tokio_websockets/)__ for
+detailed information, or take a look at the example below.
 
 Much of the code has been ported directly from the __[axum::extract::ws
 module](https://docs.rs/axum/latest/axum/extract/ws/index.html)__ - all credit
