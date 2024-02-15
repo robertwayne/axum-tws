@@ -17,8 +17,12 @@ base64 = "0.21"
 bytes = "1"
 futures-util = { version = "0.3", features = ["sink"] }
 http = "1"
-hyper = { version = "1", features = [] }
+hyper = "1"
 hyper-util = { version = "0.1", features = ["tokio"] }
 sha1 = "0.10"
 tokio = { version = "1", default-features = false }
-tokio-websockets = { version = "0.5", features = ["server", "ring"] }
+# tokio-websockets = { version = "0.5", features = ["server", "ring"] }
+tokio-websockets = { git = "https://github.com/Gelbpunkt/tokio-websockets", features = [
+    "server",
+    "ring",
+] }
