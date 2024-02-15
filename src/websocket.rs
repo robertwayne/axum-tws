@@ -7,9 +7,9 @@ use futures_util::{
 use http::HeaderValue;
 use hyper::upgrade::Upgraded;
 use hyper_util::rt::TokioIo;
-use tokio_websockets::WebSocketStream;
+use tokio_websockets::{Message, WebSocketStream};
 
-use crate::{Message, WebSocketError};
+use crate::WebSocketError;
 
 #[derive(Debug)]
 pub struct WebSocket {
@@ -24,12 +24,12 @@ impl WebSocket {
 
     /// Receive the next message from the connection.
     pub async fn recv(&mut self) -> Option<Result<Message, WebSocketError>> {
-        self.next().await.map(|res| res.map(|msg| msg.into()))
+        self.next().await
     }
 
     /// Send a message to the connection.
     pub async fn send(&mut self, msg: Message) -> Result<(), WebSocketError> {
-        self.inner.send(msg.into()).await.map_err(|e| e.into())
+        self.inner.send(msg).await.map_err(|e| e.into())
     }
 
     pub async fn close(&mut self) -> Result<(), WebSocketError> {
@@ -38,7 +38,7 @@ impl WebSocket {
 }
 
 impl Stream for WebSocket {
-    type Item = Result<tokio_websockets::Message, WebSocketError>;
+    type Item = Result<Message, WebSocketError>;
 
     fn poll_next(
         mut self: std::pin::Pin<&mut Self>,

@@ -1,4 +1,3 @@
-pub mod message;
 pub mod upgrade;
 pub mod websocket;
 
@@ -9,7 +8,9 @@ use axum_core::response::IntoResponse;
 use axum_core::response::Response;
 use http::StatusCode;
 
-pub use crate::{message::Message, upgrade::WebSocketUpgrade, websocket::WebSocket};
+pub use tokio_websockets::Message;
+
+pub use crate::{upgrade::WebSocketUpgrade, websocket::WebSocket};
 
 #[derive(Debug)]
 pub enum WebSocketError {
