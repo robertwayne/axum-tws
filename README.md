@@ -16,9 +16,9 @@ Much of the code has been ported directly from the __[axum::extract::ws
 module](https://docs.rs/axum/latest/axum/extract/ws/index.html)__ - all credit
 goes to the original authors.
 
-__This library is currently a work in progress. It is currently built against
-the main branch of `tokio-websockets`. I wouldn't necessarily recommend using
-it, but it is functional. I cannot guarantee API stability, though.__
+__This library is a work in progress. It is currently built against the main
+branch of `tokio-websockets`. I wouldn't necessarily recommend using it, but it
+is functional. I cannot guarantee API stability, though.__
 
 ## Getting Started
 
