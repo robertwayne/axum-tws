@@ -32,6 +32,7 @@ impl WebSocket {
         self.inner.send(msg).await.map_err(|e| e.into())
     }
 
+    /// Close the connection.
     pub async fn close(&mut self) -> Result<(), WebSocketError> {
         self.inner.close().await.map_err(|e| e.into())
     }
