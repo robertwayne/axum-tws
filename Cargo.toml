@@ -2,7 +2,7 @@
 name = "axum-tws"
 authors = ["Rob Wagner <rob@sombia.com>"]
 license = "MIT OR Apache-2.0"
-description = "An alternative WebSocket backend for axum using tokio-websockets."
+description = "A high-performance WebSocket backend for axum powered by tokio-websockets."
 repository = "https://github.com/robertwayne/axum-tws"
 categories = ["web-programming"]
 keywords = ["axum", "tokio-websockets"]
@@ -21,8 +21,4 @@ hyper = "1"
 hyper-util = { version = "0.1", features = ["tokio"] }
 sha1 = "0.10"
 tokio = { version = "1", default-features = false }
-# tokio-websockets = { version = "0.5", features = ["server", "ring"] }
-tokio-websockets = { git = "https://github.com/Gelbpunkt/tokio-websockets", features = [
-    "server",
-    "ring",
-] }
+tokio-websockets = { version = "0.5", features = ["server", "ring"] }
