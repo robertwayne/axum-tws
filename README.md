@@ -16,21 +16,16 @@ Much of the code has been ported directly from the __[axum::extract::ws
 module](https://docs.rs/axum/latest/axum/extract/ws/index.html)__ - all credit
 goes to the original authors.
 
-__This library is a work in progress. It is currently built against the main
-branch of `tokio-websockets`. I wouldn't necessarily recommend using it, but it
-is functional. I cannot guarantee API stability, though.__
-
 ## Getting Started
 
-Run `cargo add --git https://github.com/robertwayne/axum-tws` to add the library
-to your project.
+Run `cargo add axum-tws` to add the library to your project.
 
 ## Echo Server Example
 
 ```rust
 // [dependencies]
 // axum = "0.7"
-// axum-tws = { git = "https://github.com/robertwayne/axum-tws" }
+// axum-tws = "0.1"
 // tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 use axum::{response::Response, routing::get, Router};
 use axum_tws::{Message, WebSocket, WebSocketUpgrade};
