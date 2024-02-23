@@ -11,7 +11,7 @@ use axum_core::response::IntoResponse;
 use axum_core::response::Response;
 use http::StatusCode;
 
-pub use tokio_websockets::Message;
+pub use tokio_websockets::*;
 
 pub use crate::{upgrade::WebSocketUpgrade, websocket::WebSocket};
 
