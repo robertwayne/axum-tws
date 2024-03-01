@@ -33,10 +33,6 @@ Run `cargo add axum-tws` to add the library to your project.
 ## Echo Server Example
 
 ```rust
-// [dependencies]
-// axum = "0.7"
-// axum-tws = "0.1"
-// tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 use axum::{response::Response, routing::get, Router};
 use axum_tws::{Message, WebSocket, WebSocketUpgrade};
 
