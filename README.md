@@ -1,5 +1,15 @@
 # axum-tws
 
+<div align="right">
+<a href="https://crates.io/crates/axum-tws">
+    <img src="https://img.shields.io/crates/v/axum-tws?style=flat-square" alt="crates.io badge">
+</a>
+<a href="https://docs.rs/axum-tws/latest/">
+    <img src="https://img.shields.io/docsrs/axum-tws?style=flat-square" alt="docs.rs badge">
+</a>
+</div>
+<br>
+
 `axum-tws` is an alternative WebSocket extractor for
 __[axum](https://github.com/tokio-rs/axum)__ using
 __[tokio-websockets](https://github.com/Gelbpunkt/tokio-websockets/)__ as the
