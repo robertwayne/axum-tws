@@ -8,7 +8,7 @@ use http::request::Parts;
 use http::{header, HeaderMap, HeaderName, HeaderValue, Method, StatusCode};
 use hyper_util::rt::TokioIo;
 use sha1::Digest;
-use tokio_websockets::Config;
+use tokio_websockets::{Config, Limits};
 
 use crate::{websocket::WebSocket, WebSocketError};
 
@@ -36,6 +36,7 @@ impl OnFailedUpgrade for DefaultOnFailedUpgrade {
 
 pub struct WebSocketUpgrade<F = DefaultOnFailedUpgrade> {
     config: Config,
+    limits: Limits,
     protocol: Option<HeaderValue>,
     sec_websocket_key: HeaderValue,
     on_upgrade: hyper::upgrade::OnUpgrade,
@@ -93,6 +94,7 @@ where
 
         Ok(Self {
             config: Default::default(),
+            limits: Default::default(),
             protocol: None,
             sec_websocket_key,
             on_upgrade,
@@ -103,12 +105,23 @@ where
 }
 
 impl<F> WebSocketUpgrade<F> {
+    pub fn config(mut self, config: Config) -> Self {
+        self.config = config;
+        self
+    }
+
+    pub fn limits(mut self, limits: Limits) -> Self {
+        self.limits = limits;
+        self
+    }
+
     pub fn on_failed_upgrade<C>(self, callback: C) -> WebSocketUpgrade<C>
     where
         C: OnFailedUpgrade,
     {
         WebSocketUpgrade {
             config: self.config,
+            limits: self.limits,
             protocol: self.protocol,
             sec_websocket_key: self.sec_websocket_key,
             on_upgrade: self.on_upgrade,
@@ -126,6 +139,7 @@ impl<F> WebSocketUpgrade<F> {
     {
         let on_upgrade = self.on_upgrade;
         let config = self.config;
+        let limits = self.limits;
         let on_failed_upgrade = self.on_failed_upgrade;
 
         let protocol = self.protocol.clone();
@@ -142,6 +156,7 @@ impl<F> WebSocketUpgrade<F> {
 
             let socket = tokio_websockets::server::Builder::new()
                 .config(config)
+                .limits(limits)
                 .serve(upgraded);
 
             let socket = WebSocket::new(socket, protocol);
