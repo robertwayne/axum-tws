@@ -32,11 +32,15 @@ Run `cargo add axum-tws` to add the library to your project.
 
 ## Echo Server Example
 
-```rust
-use axum::{response::Response, routing::get, Router};
-use axum_tws::{Message, WebSocket, WebSocketUpgrade};
+If you have cloned the `axum-tws` repository, you can run the `echo_server` example with the
+command `cargo run --example echo_server`. You can then connect to it with `wscat` or similar on
+`127.0.0.1:3000/ws`.
 
-#[tokio::main]
+```rust no_run
+use axum::{response::Response, routing::get, Router};
+use axum_tws::{WebSocket, WebSocketUpgrade};
+
+#[tokio::main(flavor = "current_thread")]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000").await?;
 
@@ -65,6 +69,12 @@ async fn handle_ws(mut socket: WebSocket) -> Result<(), Box<dyn std::error::Erro
     Ok(())
 }
 ```
+
+## Feature Flags
+
+| Flag    | Default  | Description                             |
+|---------|----------|-----------------------------------------|
+| `http2` | Disabled | Adds support for WebSockets over HTTP/2 |
 
 ## Contributing
 
