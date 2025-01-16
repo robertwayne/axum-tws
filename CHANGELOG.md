@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.5.0
+
+- Add support for HTTP/2 (#3) ([@finnbear](https://github.com/finnbear))
+- Update tokio-websockets to v0.11
+
 ## v0.4.0
 
 - Update tokio-websockets to v0.10
