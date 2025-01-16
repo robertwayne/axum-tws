@@ -20,9 +20,14 @@ pub enum WebSocketError {
     ConnectionNotUpgradeable,
     Internal(tokio_websockets::Error),
     InvalidConnectionHeader,
+    /// For WebSocket over HTTP/2+
+    InvalidProtocolPseudoheader,
     InvalidUpgradeHeader,
     InvalidWebSocketVersionHeader,
+    /// Invalid method for WebSocket over HTTP/1.x
     MethodNotGet,
+    /// Invalid method for WebSocket over HTTP/2+
+    MethodNotConnect,
     UpgradeFailed(hyper::Error),
 }
 
@@ -38,6 +43,9 @@ impl Display for WebSocketError {
             WebSocketError::InvalidConnectionHeader => {
                 write!(f, "invalid `Connection` header")
             }
+            WebSocketError::InvalidProtocolPseudoheader => {
+                write!(f, "invalid `:protocol` pseudoheader")
+            }
             WebSocketError::InvalidUpgradeHeader => {
                 write!(f, "invalid `Upgrade` header")
             }
@@ -46,6 +54,9 @@ impl Display for WebSocketError {
             }
             WebSocketError::MethodNotGet => {
                 write!(f, "http request method must be `GET`")
+            }
+            WebSocketError::MethodNotConnect => {
+                write!(f, "http2 request method must be `CONNECT`")
             }
             WebSocketError::UpgradeFailed(e) => {
                 write!(f, "upgrade failed: {}", e)
