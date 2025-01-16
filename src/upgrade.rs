@@ -94,7 +94,7 @@ where
             if parts
                 .extensions
                 .get::<hyper::ext::Protocol>()
-                .map_or(true, |p| p.as_str() != "websocket")
+                .is_none_or(|p| p.as_str() != "websocket")
             {
                 return Err(WebSocketError::InvalidProtocolPseudoheader);
             }
