@@ -6,7 +6,7 @@ use axum_core::response::Response;
 use http::request::Parts;
 use http::{header, HeaderMap, HeaderName, HeaderValue, Method, StatusCode, Version};
 use hyper_util::rt::TokioIo;
-use sha1::Digest;
+use sha1_smol::Sha1;
 use tokio_websockets::{Config, Limits};
 
 use crate::{websocket::WebSocket, WebSocketError};
@@ -222,11 +222,12 @@ impl<F> WebSocketUpgrade<F> {
 fn sign(key: &[u8]) -> HeaderValue {
     use base64::engine::Engine as _;
 
-    let mut sha1 = sha1::Sha1::default();
+    let mut sha1 = Sha1::default();
     sha1.update(key);
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-WebSocket-Accept
     sha1.update(&b"258EAFA5-E914-47DA-95CA-C5AB0DC85B11"[..]);
-    let b64 = bytes::Bytes::from(base64::engine::general_purpose::STANDARD.encode(sha1.finalize()));
+    let b64 =
+        bytes::Bytes::from(base64::engine::general_purpose::STANDARD.encode(sha1.digest().bytes()));
     HeaderValue::from_maybe_shared(b64).expect("base64 is a valid value")
 }
 
