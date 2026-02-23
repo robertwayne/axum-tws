@@ -7,7 +7,7 @@ repository = "https://github.com/robertwayne/axum-tws"
 categories = ["web-programming"]
 keywords = ["axum", "tokio-websockets"]
 readme = "README.md"
-version = "0.5.0"
+version = "0.6.0"
 edition = "2021"
 
 [features]
