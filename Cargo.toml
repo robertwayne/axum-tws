@@ -15,7 +15,7 @@ default = []
 http2 = ["hyper/http2"]
 
 [dependencies]
-axum-core = "0.5.0"
+axum-core = "0.5"
 base64 = "0.22"
 bytes = "1"
 futures-util = { version = "0.3", features = ["sink"] }
@@ -24,7 +24,7 @@ hyper = "1"
 hyper-util = { version = "0.1", features = ["tokio"] }
 sha1_smol = "1.0"
 tokio = { version = "1", default-features = false }
-tokio-websockets = { version = "0.13.1", features = ["server", "sha1_smol"] }
+tokio-websockets = { version = "0.13", features = ["server", "sha1_smol"] }
 
 [dev-dependencies]
 axum = { version = "0.8", features = ["ws"] }
